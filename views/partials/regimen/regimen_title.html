@@ -1,0 +1,37 @@
+ <div class="row">
+   <div class="col-md-10">
+    <a href= "#form-modal-regimen"  role="button" class="btn btn-primary btn-large" data-toggle="modal" ng-click="regimen.resetRegimen()">+ Create a new regimen</a><hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10">
+
+    <div id="form-modal-regimen" class="modal fade" role="dialog" style="display: none;">
+      <form name="regimenForm" ng-submit="regimen.saveTempRegimen()" role="form">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <a class="close" data-dismiss="modal">×</a>
+              <h3>Create a new regimen</h3>
+            </div>
+            <div class="modal-body"> 
+             <div class="field field-type-text item-name-field">
+              <div class="field-ui field-size-large">
+                <input type="text" focus name="name" placeholder="Type name of regimen..." value="" autocomplete="off" class="form-control" required ng-minlength=3 
+                ng-maxlength=40 ng-model="regimen.regimendata.name" focus></input>
+
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input class="btn btn-success" type="submit" value="Ok" id="submit">
+            <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div> 
+</div>

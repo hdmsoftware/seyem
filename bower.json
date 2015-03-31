@@ -1,0 +1,25 @@
+{
+  "name": "app",
+  "version": "0.0.2",
+  "dependencies": {
+    "angular": "*",
+    "angular-route": "*",
+    "angular-local-storage" : "*",
+    "noty": "*",
+    "jquery": "*",
+    "bootstrap": "*",
+    "cryptojslib" : "*",
+    "requirejs" : "*",
+    "bootstrap-datepicker": "*",
+    "angular-bootstrap":"*",
+    "angular-ui-router":"*"
+  },
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

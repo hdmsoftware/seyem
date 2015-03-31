@@ -1,0 +1,90 @@
+<div ng-include src="'partials/nav.html'"></div> 
+<div ng-include src="'partials/sidebar.html'"></div> 
+<div class="container-fluid">
+
+
+    <div class="dialog">
+        <div class="panel panel-default">
+            <p class="panel-heading no-collapse">Assign regimen to a patient</p>
+            <div class="panel-body">
+                <form ng-submit="assign.reviewAssignRegimen()" role="form">
+                   <div class="form-group">
+                       <div class="alert alert-info" colapse>
+                        This information will be filled out by Doctor or Surgical Coordinator during the patient's visit, while the patients is in chair. 
+                    </div> 
+                </div>
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" name="firstname" placeholder="" value="" autocomplete="off" class="form-control span12" required ng-minlength=3 
+                    ng-maxlength=40 ng-model="assign.firstname"></input>
+                </div>
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" name="lastname" placeholder="" value="" autocomplete="off" class="form-control" required ng-minlength=3 
+                    ng-maxlength=40 ng-model="assign.lastname"></input>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="name" placeholder="" value="" autocomplete="off" class="form-control" required ng-model="assign.email"></input>
+                </div>
+
+
+                <div class="form-group">
+                 <div class="alert alert-warning">
+                    Choose one of previously created regimens needed for a selected patient 
+
+                    <label>Regimen name</label>
+                    <select class="form-control" ng-model="assign.regimen">
+                     <option value='' disabled selected style='display:none;'>Select regimen</option> 
+                     <option ng-repeat="item in regimens" value="{{item.name}}">{{item.name}}</option>
+                 </select>
+             </div>
+         </div>
+         <div class="form-group">
+            <label>Regimen start date</label>
+            <div class="input-group date" id="datepicker">
+                <input class="form-control" type="text" ng-model="assign.startdate">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+           <div class="alert alert-warning">
+
+            <label font-weight: "normal !important"><strong>Notifications:</strong> This is required information. What time of the day patient wants first and last reminder. This will avoid sending reminders while asleep.</label>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <label class="control-label">First notification after</label>
+                    <timepicker ng-model="assign.beforetime" ng-change="changed()" 
+                    show-meridian=true>
+                </div>
+
+                <div class="col-xs-6">
+                    <label class="control-label">Last notification before:</label>
+                    <timepicker ng-model="assign.aftertime" ng-change="changed()" 
+                    show-meridian=true>
+                </div>
+            </div>
+        </div> 
+
+        <div class="form-group">
+           <input class="btn pull-right" value="Cancel" id="submit" >
+           <input class="btn btn-success pull-right" type="submit" value="Review" id="submit" >
+
+
+
+       </div>
+
+       <div class="clearfix"></div>
+   </form>
+</div>
+</div>
+
+</div>
+
+
+</div>
+

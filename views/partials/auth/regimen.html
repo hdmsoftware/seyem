@@ -1,0 +1,14 @@
+
+
+    <div class="container-fluid">
+
+    <div ng-include src="'partials/regimen/regimen_title.html'"></div>
+
+     <div ng-show="regimen.active"  ng-include src="'partials/regimen/medication_modal.html'"></div>
+
+     <div ng-show="regimen.active && regimen.medicationlist.length > 0"  ng-include src="'partials/regimen/medication_grid.html'"></div>
+
+    <!-- list current regimens -->
+    <div ng-include ng-show="!regimen.active" src="'partials/regimen/regimens.html'"></div>
+
+    </div> <!-- end container -->
