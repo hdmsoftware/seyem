@@ -1,0 +1,50 @@
+<form name="mainForm" novalidate ng-submit="regimen.createRegimen()">
+
+     <!-- form elements -->  
+     <div class="row">
+       <div class="col-md-10">
+        <div class="field-ui field-size-large">
+          <label>Regimen name</label>
+          <input type="text" name="name" placeholder="Type name of regimen..." value="regimen.name" autocomplete="off" class="form-control" required ng-minlength=3 
+          ng-maxlength=40 ng-model="regimen.regimendata.name"></input>
+
+        </div>
+        <hr>
+      </div>
+    </div>   
+
+    
+   <div class="row">
+      <div class="col-md-10">
+        <a  role="button" class="btn btn-success btn-large pull-left" ng-click="regimen.setAdd(true)">+ Add Medications</a>
+      </div>
+    </div> 
+
+
+    <div ng-if="regimen.showAdd" ng-include src="'partials/medication/new.html'"></div>
+
+      <div ng-show="regimen.regimendata.medicationlist.length>0" ng-include src="'partials/medication/medications.html'"></div> 
+
+<!-- 
+      <div class="row">
+       <div class="col-md-10">
+        <div class="field-ui field-size-large">
+          <label>Regimen Instructions</label>
+          <textarea type="text" name="name" placeholder="Regimen instructions..." value="regimen.instructions" autocomplete="off" class="form-control" rows="5" ng-model="regimen.instructions"></textarea>
+
+        </div>
+        <hr>
+      </div>
+    </div>  -->
+
+
+
+    <div class="row">
+     <div class="col-md-10" >
+         <button type="submit" class="btn btn-primary btn-large pull-right" ng-disabled="mainForm.$invalid">Save regimen</button>
+     </div>
+    </div>
+  </form>
+    
+
+

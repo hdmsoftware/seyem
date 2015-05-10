@@ -11,7 +11,7 @@ module.exports = function(app, passport,models) {
         res.render('partials/' + name);
     });
 
-    app.get('/partials/auth/:name', showClientRequest, passport.authenticate('local-authorization', {
+    app.get('/partials/auth/:name',  showClientRequest, passport.authenticate('local-authorization', {
         session: false
     }),function (req, res) {
         var name = req.params.name;
@@ -23,6 +23,13 @@ module.exports = function(app, passport,models) {
     }),function (req, res) {
         var name = req.params.name;
         res.render('partials/regimen/' + name);
+    });
+
+    app.get('/partials/medication/:name', showClientRequest, passport.authenticate('local-authorization', {
+        session: false
+    }),function (req, res) {
+        var name = req.params.name;
+        res.render('partials/medication/' + name);
     });
 
     app.post('/api/login', showClientRequest, passport.authenticate('local-login', {
@@ -59,6 +66,8 @@ module.exports = function(app, passport,models) {
     app.get('/api/regimens', showClientRequest, passport.authenticate('local-authorization', {
         session: false
     }),api.getRegimens);
+
+    app.get('/api/sample', api.getRegimens);
 
 
 

@@ -1,3 +1,4 @@
+
 /**
  * Module dependencies
 */
@@ -44,6 +45,20 @@ app.configure(function() {
 
 });
 
+
+// Add headers
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+    if ('OPTIONS' == req.method){
+        return res.send(200);
+    }
+    next();
+});
+
+
+
 require('./app/routes.js')(app, passport,models); // load our routes and pass in our app and fully configured passport
 
 // development only
@@ -59,5 +74,8 @@ if (app.get('env') === 'production') {
 //express.vhost(vhost, app);
 
 var server = http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + vhost+":"+server.address().port);
+   console.log('Express server listening on port ' + vhost+":"+server.address().port);
 });
+
+
+

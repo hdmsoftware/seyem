@@ -132,6 +132,7 @@ module.exports = function(models){
             });
         },
         getRegimens: function(req, res){
+            console.log("api regimens called..");
             Regimen.find(function(err, regimens){
                 res.json({regimens:regimens});
             })

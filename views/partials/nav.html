@@ -1,23 +1,23 @@
- <div class="navbar navbar-default" role="navigation" ng-controller="NavCtrl">
+ <div class="navbar navbar-default" role="navigation" ng-controller="NavCtrl as vm">
    <div class="navbar-header">
     <a class="" href="index.html"><span class="navbar-brand"><span class="fa fa-paper-plane"></span> S Eye M</span></a></div>
 
     <div class="navbar-collapse no-collapse" style="height: 1px;">
       <ul id="main-menu" class="nav navbar-nav navbar-right">
-        <li class="dropdown hidden-xs" ng-show="nav.isAuthenticated">
+        <li class="dropdown hidden-xs" ng-show="vm.isAuthenticated">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> {{ nav.username }}
+            <span class="glyphicon glyphicon-user padding-right-small" style="position:relative;top: 3px;"></span> {{ vm.username }}
             <i class="fa fa-caret-down"></i>
           </a>
 
           <ul class="dropdown-menu">
-            <li><a href="./" ng-show="nav.isAuthenticated">My Account</a></li>
+            <li><a href="./" ng-show="vm.isAuthenticated">My Account</a></li>
             <li class="divider"></li>
-            <li class="dropdown-header" ng-show="nav.isAuthenticated">Admin Panel</li>
-            <li><a href="./" ng-show="nav.isAuthenticated">Users</a></li>
+            <li class="dropdown-header" ng-show="vm.isAuthenticated">Admin Panel</li>
+            <li><a href="./" ng-show="vm.isAuthenticated">Add new users</a></li>
             <li class="divider"></li>
             
-            <li><a href="" ng-show="nav.isAuthenticated" ng-click="logout()">Logout</a></li>
+            <li><a href="" ng-show="vm.isAuthenticated" ng-click="vm.logout()">Logout</a></li>
           </ul>
         </li>
       </ul>

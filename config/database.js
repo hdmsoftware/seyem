@@ -1,6 +1,6 @@
 module.exports = function(mongoose) {
 
-    var dbURI = 'mongodb://localhost:27017/seyem';
+    var dbURI = 'mongodb://localhost:27017/myApp';
     var connection = mongoose.createConnection(dbURI,{ server: { poolSize: 5 } });
 
     // When successfully connected
