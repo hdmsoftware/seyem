@@ -278,8 +278,8 @@
 
 
 
-    seyemControllers.controller('RegimenCtrl', ['$http', 'regimenService', 'helper', 'timesaday',
-        function($http, regimenService, helper, timesaday) {
+    seyemControllers.controller('RegimenCtrl', ['regimenService', '$state', 'helper', 'timesaday', 'containerRegimenMedication',
+        function( regimenService, $state, helper, timesaday, containerRegimenMedication) {
 
             var regimen = this;
 
@@ -288,50 +288,14 @@
                 medicationlist: []
             };
 
-            regimen.editMedication = {};
-            regimen.editMedicationIndex = null;
+            getRegimens();
 
             regimen.setAdd = function(show) {
                 regimen.showAdd = show;
                 if (show) {
-                    initData();
+                    regimen.medication = {};
                 }
             };
-
-            regimen.setEdit = function(index) {
-                regimen.editMedication = 
-                   angular.copy(regimen.regimendata.medicationlist[index]);
-                regimen.editMedicationIndex = index;
-               
-            };
-
-            regimen.cancelEdit = function() {
-                regimen.editMedication = {};
-                regimen.editMedicationIndex = null;
-            };
-
-            regimen.saveEdit = function(medication) {
-                regimen.regimendata.medicationlist[regimen.editMedicationIndex] =
-                    angular.copy(regimen.editMedication);
-                regimen.editMedication = {};
-                regimen.editMedicationIndex = null;
-              
-            }
-
-            regimen.saveMedication = function() {
-
-                regimen.regimendata.medicationlist.push({
-                    "name": regimen.medication.name,
-                    "dosage": regimen.medication.dosage,
-                    "timesaday": regimen.medication.timesaday,
-                    "daystart": regimen.medication.daystart,
-                    "dayend": regimen.medication.dayend
-                });
-
-                regimen.medication = {};
-
-                initData();
-            }
 
             regimen.resetRegimen = function() {
 
@@ -343,22 +307,10 @@
                 regimen.medication = {};
             }
 
-            regimenService.getRegimens()
-                .success(function(data) {
-                    regimen.regimens = data.regimens;
-                })
-                .error(function() {
-
-                    noty({
-                        text: "Cannot get regimens",
-                        timeout: 2000,
-                        type: 'error'
-                    });
-
-                });
-
-
             regimen.createRegimen = function() {
+                //TODO:
+                regimen.regimendata.medicationlist =
+                    containerRegimenMedication.currentMedications;
 
                 var new_regimen = {
                     regimen: regimen.regimendata
@@ -372,11 +324,14 @@
                             timeout: 2000,
                             type: 'success'
                         });
+                        $state.go('dashboard.manage');
                     })
-                    .error(function() {
+                   .error(function (data, status, headers, config)
+                    {
 
                         noty({
-                            text: "Cannot post regimen",
+                            layout: 'center',
+                            text: data.message,
                             timeout: 2000,
                             type: 'error'
                         });
@@ -384,34 +339,111 @@
                     });
             }
 
+            regimen.deleteRegimen = function(_id) {
 
-            function initData() {
+                regimenService.deleteRegimen(_id)
+                    .success(function(data) {
+                        getRegimens();
+                        noty({
+                            layout: 'center',
+                            text: data.message,
+                            timeout: 3000,
+                            type: 'success',
+                            killer: true
+                        });
+                    })
+                    .error(function() {
 
-                // TODO: this function is just for initial mockup
-                // everything bellow will be changed accordingly
-                regimen.medication = {};
-
-                $(function() {
-                    $('#datepicker').datepicker({
-                        autoclose: true,
-                    }).on("changeDate", function(e) {
+                        noty({
+                            text: "Cannot delete regimen",
+                            timeout: 2000,
+                            type: 'error'
+                        });
 
                     });
 
-                });
-
-                regimen.today = function() {
-                    regimen.dt = new Date();
-                };
-
-                regimen.today();
-                regimen.medication.timesadayitems = timesaday;
-                regimen.medication.startdays = helper.getStartDays();
-
             }
+
+
+              regimen.updateRegimen = function(id) {
+                console.log("Update regimen:" + id);
+              }
+
+              function getRegimens(){
+                regimenService.getRegimens()
+                .success(function(data) {
+                    regimen.regimens = data.regimens;
+                })
+                .error(function() {
+
+                    noty({
+                        text: "Cannot get regimens",
+                        timeout: 2000,
+                        type: 'error'
+                    });
+
+                });
+              }
 
         }
     ]);
+
+    seyemControllers.controller('MedicationCtrl', ['helper', 'timesaday', 'containerRegimenMedication',
+        function(helper, timesaday, containerRegimenMedication) {
+
+            var medication = this;
+
+            medication.medicationlist = [];
+            medication.editMedication = {};
+            medication.current = {};
+            medication.editMedicationIndex = null;
+            medication.timesadayitems = timesaday;
+            medication.startdays = helper.getStartDays();
+
+            medication.saveMedication = function() {
+                medication.medicationlist.push({
+                    "name": medication.current.name,
+                    "dosage": medication.current.dosage,
+                    "timesaday": medication.current.timesaday,
+                    "daystart": medication.current.daystart,
+                    "dayend": medication.current.dayend
+                });
+
+                // update shared service
+                containerRegimenMedication.currentMedications = medication.medicationlist;
+
+                medication.current = {};
+
+            }
+
+            medication.setEdit = function(index, medicationEdited) {
+                medication.editMedication = angular.copy(medicationEdited);
+                medication.editMedicationIndex = index;
+
+            };
+
+            medication.cancelEdit = function() {
+                medication.editMedication = {};
+                medication.editMedicationIndex = null;
+            };
+
+            medication.saveEdit = function() {
+                medication.medicationlist[medication.editMedicationIndex] =
+                    angular.copy(medication.editMedication);
+                medication.editMedication = {};
+                medication.editMedicationIndex = null;
+            }
+
+             medication.setRemove = function(index, medicationDeleted) {
+
+                console.log("index:" + index);
+                medication.medicationlist.splice(index, 1);
+
+            };
+        }
+    ]);
+
+
 
     //     return seyemControllers;
 

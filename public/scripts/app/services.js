@@ -70,7 +70,8 @@
     seyemServices.service('regimenService', ['$http', function($http) {
         return {
             getRegimens: getRegimens,
-            postRegimen: postRegimen
+            postRegimen: postRegimen,
+            deleteRegimen: deleteRegimen
         };
 
         var urlBase = "/api/regimens'";
@@ -80,13 +81,17 @@
         }
 
         function postRegimen(data) {
-            return $http.post('/api/regimens', data);
+            return $http.post('/api/regimen', data);
+        }
+
+        function deleteRegimen(id){
+            return $http.delete('/api/regimen/' + id);
         }
     }])
 
     seyemServices.service('helper', function() {
         return {
-            generateUUID : generateUUID,
+            generateUUID: generateUUID,
             getStartDays: getStartDays
         }
 
@@ -100,7 +105,7 @@
             return uuid;
         };
 
-        function getStartDays(){
+        function getStartDays() {
             var startDaysTemp = [];
             for (var i = 1; i < 100; i++) {
                 startDaysTemp.push("Day " + i);
@@ -109,7 +114,27 @@
         }
     })
 
-    
+
+    seyemServices.factory('containerRegimenMedication', function() {
+
+        var messages = {};
+
+        messages.currentMedications = [];
+
+        // messages.add = function(message) {
+        //     messages.list.push({
+        //         id: messages.list.length,
+        //         text: message
+        //     });
+        // };
+
+        return messages;
+        //return {
+        //    currentMedications: []
+        //}
+    })
+
+
 
     //     return seyemServices;
     // });

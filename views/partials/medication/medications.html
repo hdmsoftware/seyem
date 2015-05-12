@@ -1,5 +1,5 @@
 
-    <div class="col-md-10">
+    <div class="col-md-10" ng-show="medication_vm.medicationlist.length>0">
 
         <div class="panel panel-info">
             <!-- Default panel contents -->
@@ -17,7 +17,7 @@
                         <th class="text-center" width="10%"><span class="glyphicon glyphicon-trash"></span></th>
                     </tr>
                 </thead>
-                <tbody  ng-repeat="medication in regimen.regimendata.medicationlist">
+                <tbody  ng-repeat="medication in medication_vm.medicationlist">
                     <tr>
                         
 
@@ -30,18 +30,18 @@
                         
                         
                         <td class="text-center">
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="regimen.setEdit($index)">
+                            <button type="button" class="btn btn-primary btn-sm" ng-click="medication_vm.setEdit($index, medication)">
                                 <span class="glyphicon glyphicon-pencil"></span> Update
                             </button>
                         </td>
                         <td class="text-center">
-                            <button ng-disabled="true" type="button" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-trash"></span> Delete
+                            <button type="button" class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-trash" ng-click="medication_vm.setRemove($index, medication)"></span> Delete
                             </button>
                         </td>
 
                     </tr>
-                     <tr ng-show="$index == regimen.editMedicationIndex" ng-if="$index == regimen.editMedicationIndex">
+                     <tr ng-show="$index == medication_vm.editMedicationIndex" ng-if="$index == medication_vm.editMedicationIndex">
                         <td colspan="7" ng-include src="'partials/medication/edit.html'"></td>
                     </tr>
 

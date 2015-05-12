@@ -67,8 +67,11 @@ module.exports = function(app, passport,models) {
         session: false
     }),api.getRegimens);
 
-    app.get('/api/sample', api.getRegimens);
+    app.delete('/api/regimen/:id', showClientRequest, passport.authenticate('local-authorization', {
+        session: false
+    }),api.removeRegimen);
 
+   
 
 
 

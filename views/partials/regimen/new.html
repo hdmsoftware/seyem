@@ -1,4 +1,4 @@
-<form name="mainForm" novalidate ng-submit="regimen.createRegimen()">
+<form name="mainForm" role="form" ng-submit="regimen.createRegimen()" novalidate>
 
      <!-- form elements -->  
      <div class="row">
@@ -14,16 +14,13 @@
     </div>   
 
     
-   <div class="row">
+   <div class="row" ng-show="regimen.regimendata.name">
       <div class="col-md-10">
-        <a  role="button" class="btn btn-success btn-large pull-left" ng-click="regimen.setAdd(true)">+ Add Medications</a>
+        <a role="button" class="btn btn-success btn-large pull-left" ng-click="regimen.setAdd(true)">+ Add Medications</a>
       </div>
     </div> 
-
-
-    <div ng-if="regimen.showAdd" ng-include src="'partials/medication/new.html'"></div>
-
-      <div ng-show="regimen.regimendata.medicationlist.length>0" ng-include src="'partials/medication/medications.html'"></div> 
+   
+     <div ng-include src="'partials/medication/medication.html'" ng-controller="MedicationCtrl as medication_vm"></div> 
 
 <!-- 
       <div class="row">
@@ -41,9 +38,10 @@
 
     <div class="row">
      <div class="col-md-10" >
-         <button type="submit" class="btn btn-primary btn-large pull-right" ng-disabled="mainForm.$invalid">Save regimen</button>
+         <button type="submit" class="btn btn-primary btn-large pull-right" >Save regimen</button>
      </div>
     </div>
+
   </form>
     
 

@@ -4,8 +4,9 @@ module.exports = function(connection){
 	
 	var Schema = mongoose.Schema;
 
+	
 	var regimenSchema = new Schema({
-		name : { type: String, required :true },
+		name : { type: String, required :true, unique: true, dropDups: true },
 		medicationlist : {
 			type: Array
 		},

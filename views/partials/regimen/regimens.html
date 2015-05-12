@@ -4,7 +4,7 @@
       </div>
 </div> 
 
- <div class="row">
+ <div class="row"  ng-show="regimen.regimens.length > 0">
     <div class="col-md-10">
 
         <div class="panel panel-info">
@@ -14,7 +14,7 @@
             <table class="table table-condensed">
                 <thead>
                     <tr>
-                        <th class="text-center" width="20%">Regimen name</th>
+                        <th class="text-center" width="20%">Name</th>
                         <th class="text-center" width="10%">Created</th>
 
                         <th class="text-center" width="10%"><span class="glyphicon glyphicon-pencil"></span></th>
@@ -22,25 +22,26 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="regimen in regimen.regimens">
+                    <tr ng-repeat="currentRegimen in regimen.regimens">
 
 
-                        <td class="text-center" ng-hide="regimen.modify">{{regimen.name}}</td>
+                        <td class="text-center" ng-hide="regimen.modify">{{currentRegimen.name}}</td>
 
-                        <td class="text-center" ng-hide="regimen.modify">{{regimen.created_at}}</td>                    
+                        <td class="text-center" ng-hide="regimen.modify">{{currentRegimen.created_at | date:"MM/dd/yyyy 'at' h:mma"}}</td> 
 
 
                         <td class="text-center">
-                            <button type="button" class="btn btn-primary btn-sm" ng-click="regimen.updateRegimen($index,false)">
+                            <button type="button" class="btn btn-primary btn-xs" ng-click="regimen.updateRegimen($index)">
                                 <span class="glyphicon glyphicon-pencil"></span> Update
                             </button>
                         </td>
                         <td class="text-center">
-                            <button ng-disabled="true" type="button" class="btn btn-danger btn-sm">
+                
+                            <button type="button" class="btn btn-danger btn-xs" ng-really-message="Are you sure you want to delete?" ng-really-click="regimen.deleteRegimen(currentRegimen._id)">
                                 <span class="glyphicon glyphicon-trash"></span> Delete
                             </button>
                         </td>
-
+                    </tr>
                     </tbody>
                 </table>
 

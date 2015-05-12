@@ -17,6 +17,7 @@
         'ngRoute',
         'seyemServices',
         'seyemValues',
+        'seyemDirectives',
         'seyemControllers',
         'ui.bootstrap',
         'ui.router'
@@ -52,12 +53,10 @@
                  .state('dashboard',{
                     url: "/dashboard",
                     templateUrl : "partials/auth/home.html"//,
-                    ///controller: 'HomeCtrl as home'//,
-                    //access: { requiredLogin: false }
                  })
                  .state('dashboard.manage',{
                     url: "/manage",
-                    templateUrl :"partials/auth/regimen.html",
+                    templateUrl :"partials/regimen/regimens.html",
                     controller : 'RegimenCtrl as regimen'
                  })
                  .state('dashboard.new',{
@@ -75,42 +74,42 @@
 
    
 
-    seyem.run(['$rootScope','$timeout', '$state', 'AuthenticationService',
-        function($rootScope, $timeout, $state, AuthenticationService) {
-        // $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
+    // seyem.run(['$rootScope','$timeout', '$state', 'AuthenticationService',
+    //     function($rootScope, $timeout, $state, AuthenticationService) {
+    //     // $rootScope.$on("$routeChangeStart", function(event, nextRoute, currentRoute) {
 
-        //     console.log("nextRoute:" + nextRoute);
-        //     console.log("currentRoute:" + currentRoute);
+    //     //     console.log("nextRoute:" + nextRoute);
+    //     //     console.log("currentRoute:" + currentRoute);
 
-        //     if (nextRoute.access===undefined) {
-        //         $location.path("/login");
-        //     }else if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged()) {
-        //         $location.path("/login");
-        //     }else if (AuthenticationService.isLogged() && !nextRoute.access.requiredLogin) {
-        //         $location.path("/home");
-        //     }
-        // });
+    //     //     if (nextRoute.access===undefined) {
+    //     //         $location.path("/login");
+    //     //     }else if (nextRoute.access.requiredLogin && !AuthenticationService.isLogged()) {
+    //     //         $location.path("/login");
+    //     //     }else if (AuthenticationService.isLogged() && !nextRoute.access.requiredLogin) {
+    //     //         $location.path("/home");
+    //     //     }
+    //     // });
 
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams,
-            fromState, fromParams){
-           // console.log("toState:" + toState);
-           // console.log("fromState:" + fromState);
+    //     $rootScope.$on('$stateChangeStart', function(event, toState, toParams,
+    //         fromState, fromParams){
+    //        // console.log("toState:" + toState);
+    //        // console.log("fromState:" + fromState);
 
-            if (!AuthenticationService.isLogged()){
-                // console.log("Not logged in...");
-                // $timeout(function() {
-                //     $state.go('login');
-                // });
-            }
-            else{
-                //console.log("Logged in....");
-                //$timeout(function() {
-                //    $state.go('dashboard');
-                //});
-            }
+    //         if (!AuthenticationService.isLogged()){
+    //             // console.log("Not logged in...");
+    //             // $timeout(function() {
+    //             //     $state.go('login');
+    //             // });
+    //         }
+    //         else{
+    //             //console.log("Logged in....");
+    //             //$timeout(function() {
+    //             //    $state.go('dashboard');
+    //             //});
+    //         }
 
-        })
-    }]);
+    //     })
+    // }]);
 
 //    return mainApp;
 

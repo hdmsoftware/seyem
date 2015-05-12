@@ -5,41 +5,41 @@
         <div class="form-group">
          <label>Medication name</label>
          <input type="text" name="name" autocomplete="off" class="form-control" required ng-minlength=3 
-         ng-maxlength=40 ng-model="regimen.editMedication.name"></input>
+         ng-maxlength=40 ng-model="medication_vm.editMedication.name"></input>
        </div>
 
        
         <div class="form-group">
          <label>How many times a day to take</label>
-          <select class="form-control" ng-model="regimen.editMedication.timesaday" 
-          ng-options="item for item in regimen.medication.timesadayitems">
+          <select class="form-control" ng-model="medication_vm.editMedication.timesaday" 
+          ng-options="item for item in medication_vm.timesadayitems">
   		  </select>
 
      </div>
 
         <div class="form-group">
         <label>How many drops</label>
-        <input type="number" name="dosage" placeholder="" value="" autocomplete="off" min="1" max="20" class="form-control" required ng-model="regimen.editMedication.dosage"></input>
+        <input type="number" name="dosage" placeholder="" value="" autocomplete="off" min="1" max="20" class="form-control" required ng-model="medication_vm.editMedication.dosage"></input>
       </div>
 
        <div class="form-group">
-        <label>Choose the first day to start regimen for this medicaton</label>
-        <select class="form-control" ng-model="regimen.editMedication.daystart" 
-          ng-options="item for item in regimen.medication.startdays">
+        <label>Choose the first day to start medication_vm for this medicaton</label>
+        <select class="form-control" ng-model="medication_vm.editMedication.daystart" 
+          ng-options="item for item in medication_vm.startdays">
   		  </select>
      </div>
 
      <div class="form-group">
-      <label>Choose the last day to end regimen for this medicaton</label>
-      <select class="form-control" ng-model="regimen.editMedication.dayend" 
-          ng-options="item for item in regimen.medication.startdays">
+      <label>Choose the last day to end medication_vm for this medicaton</label>
+      <select class="form-control" ng-model="medication_vm.editMedication.dayend" 
+          ng-options="item for item in medication_vm.startdays">
   		  </select>
    </div>
 
 
    <div class="form-group">
-     <input class="btn btn-success" type="button" value="Save" ng-click="regimen.saveEdit(medication)">
-     <a href="#" class="btn" data-dismiss="modal"  ng-click="regimen.cancelEdit()">Cancel</a>
+     <input class="btn btn-success" type="button" value="Save" ng-click="medication_vm.saveEdit()">
+     <a href="#" class="btn" data-dismiss="modal"  ng-click="medication_vm.cancelEdit()">Cancel</a>
    </div>
 
 

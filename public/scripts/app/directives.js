@@ -5,30 +5,33 @@
 	/* Directives */
 	var seyemDirectives = angular.module('seyemDirectives', []);
 
-	seyemDirectives.directive('showSlide', function() {
+	var INTEGER_REGEXP = /^\-?\d+$/;
+
+	seyemDirectives.directive('integer', function() {
 		return {
-			//restrict it's use to attribute only.
-			restrict: 'A',
-
-			//set up the directive.
-			link: function(scope, elem, attr) {
-
-				//get the field to watch from the directive attribute.
-				var watchField = attr.showSlide;
-
-				console.log(watchField);
-
-				//set up the watch to toggle the element.
-				scope.$watch(attr.showSlide, function(v) {
-					if (v && !elem.is(':visible')) {
-						elem.slideDown();
-					} else {
-						elem.slideUp();
-					}
-				});
+			require: 'ngModel',
+			link: function(scope, elm, attrs, ctrl) {
+				ctrl.$validators.integer = function(modelValue, viewValue) {
+					if (ctrl.$isEmpty(modelValue)) return true;
+					if (INTEGER_REGEXP.test(viewValue)) return true;
+					return false;
+				};
 			}
-		}
+		};
 	});
 
+	seyemDirectives.directive('ngReallyClick', [function() {
+    return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+            element.bind('click', function() {
+                var message = attrs.ngReallyMessage;
+                if (message && confirm(message)) {
+                    scope.$apply(attrs.ngReallyClick);
+                }
+            });
+        }
+    }
+}]);
 
 })();
